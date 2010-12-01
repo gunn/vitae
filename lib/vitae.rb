@@ -1,0 +1,3 @@
+module Vitae
+  # Your code goes here...
+end

@@ -1,0 +1,5 @@
+== Vitae
+
+Vitae is to CVs what rubygems is to ruby code.
+
+Now I just need to program it.
