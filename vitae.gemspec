@@ -11,6 +11,8 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/gunn/vitae"
   s.summary     = %q{A structured CV publishing system.}
   s.description = %q{Vitae is to CVs what rubygems is to ruby code. Now I just need to program it.}
+  
+  s.add_dependency "rails", "3.0.3"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
