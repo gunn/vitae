@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     vitae (0.0.2)
-      jquery-rails
+      jquery-rails (= 0.2.5)
       rails (= 3.0.3)
 
 GEM
@@ -78,6 +78,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jquery-rails
+  jquery-rails (= 0.2.5)
   rails (= 3.0.3)
   vitae!

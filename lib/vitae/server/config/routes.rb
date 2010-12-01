@@ -1,4 +1,6 @@
 Server::Application.routes.draw do
+  
+  root :to => Proc.new {|env| [200, {"Content-Type" => "text/html"}, "Hello"]}
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
