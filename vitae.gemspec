@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Arthur Gunn"]
   s.email       = ["arthur@gunn.co.nz"]
-  s.homepage    = "http://rubygems.org/gems/vitae"
+  s.homepage    = "https://github.com/gunn/vitae"
   s.summary     = %q{A structured CV publishing system.}
   s.description = %q{Vitae is to CVs what rubygems is to ruby code. Now I just need to program it.}
 
