@@ -1,4 +1,13 @@
 #!/usr/bin/env ruby
+require "rubygems"
+require "rack"
 
-puts "Hello World!"
-puts "it's #{Time.now}"
+port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
+server = Rack::Server.new.tap do |s|
+  s.options[:config]  = File.join(File.dirname(__FILE__), "../lib/vitae/server/config.ru")
+  s.options[:Port]    = 3141 unless port_set_by_user
+end
+
+puts "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}"
+
+server.start
