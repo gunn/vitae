@@ -8,8 +8,24 @@ class VitaeCommands < Thor
   default_task :create
 
   desc "create [project_name]", "Create a new vitae project"
-  def create(name)
+  def create(name, *cv_names)
     puts "creating #{name}..."
+    
+    cv_names = ["default"] if cv_names.size==0
+    cv_names.each do |cv_name|
+      create_file "#{name}/cvs/#{cv_name}/cv.yaml" do
+        "CV file for #{cv_name}"
+      end
+    end
+    
+    create_file "#{name}/themes/default/application.js" do
+      "// I'm javascript!"
+    end
+    
+    create_file "#{name}/themes/default/application.css" do
+      "/* I'm CSS! */"
+    end
+    
   end
 
   desc "server [-p 3000]", "Start the vitae server."
