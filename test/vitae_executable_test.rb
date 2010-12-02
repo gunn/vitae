@@ -22,8 +22,18 @@ class VitaeExecutableTest < VitaeTestCase
     end
   end
   
-  test "the server accepts options, gives help" do
+  test "the server responds well" do
     assert_match("Serving CVs", vitae_server("--pretend"))
+  end
+  
+  test "the server accepts a custom port" do
+    assert_match(":3141", vitae_server("--pretend"))
+    assert_match(":9292", vitae_server("--pretend -p 9292"))
+    assert_match(":1121", vitae_server("--pretend -p 1121"))
+  end
+  
+  test "the server gives rackup help" do
+    assert_match("Usage: rackup", vitae_server("-h"))
   end
   
 end
