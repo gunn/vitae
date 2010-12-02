@@ -2,49 +2,51 @@
 require "rubygems"
 require "thor"
 
-class VitaeCommands < Thor
-  include Thor::Actions
+module Vitae
+  class CLI < Thor
+    include Thor::Actions
 
-  default_task :create
+    default_task :create
 
-  desc "create [project_name]", "Create a new vitae project"
-  def create(name, *cv_names)
-    puts "creating #{name}..."
+    desc "create [project_name]", "Create a new vitae project"
+    def create(name, *cv_names)
+      puts "creating #{name}..."
     
-    cv_names = ["default"] if cv_names.size==0
-    cv_names.each do |cv_name|
-      create_file "#{name}/cvs/#{cv_name}/cv.yaml" do
-        "CV file for #{cv_name}"
+      cv_names = ["default"] if cv_names.size==0
+      cv_names.each do |cv_name|
+        create_file "#{name}/cvs/#{cv_name}/cv.yaml" do
+          "CV file for #{cv_name}"
+        end
       end
-    end
     
-    create_file "#{name}/themes/default/application.js" do
-      "// I'm javascript!"
-    end
+      create_file "#{name}/themes/default/application.js" do
+        "// I'm javascript!"
+      end
     
-    create_file "#{name}/themes/default/application.css" do
-      "/* I'm CSS! */"
-    end
+      create_file "#{name}/themes/default/application.css" do
+        "/* I'm CSS! */"
+      end
     
-  end
+    end
 
-  desc "server [-p 3000]", "Start the vitae server."
-  def server
-    require "rack"
+    desc "server [-p 3000]", "Start the vitae server."
+    def server
+      require "rack"
     
-    just_pretend = ARGV.delete "--pretend"
-    port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
+      just_pretend = ARGV.delete "--pretend"
+      port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
     
-    server = Rack::Server.new.tap do |s|
-      s.options[:config]  = File.join(File.dirname(__FILE__), "../lib/vitae/server/config.ru")
-      s.options[:Port]    = 3141 unless port_set_by_user
+      server = Rack::Server.new.tap do |s|
+        s.options[:config]  = File.join(File.dirname(__FILE__), "../lib/vitae/server/config.ru")
+        s.options[:Port]    = 3141 unless port_set_by_user
+      end
+    
+      say "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}", :green
+    
+      server.start unless just_pretend
     end
-    
-    say "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}", :green
-    
-    server.start unless just_pretend
-  end
 
+  end
 end
 
-VitaeCommands.start
+Vitae::CLI.start
