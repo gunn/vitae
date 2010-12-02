@@ -1,13 +1,34 @@
 #!/usr/bin/env ruby
 require "rubygems"
-require "rack"
+require "thor"
 
-port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
-server = Rack::Server.new.tap do |s|
-  s.options[:config]  = File.join(File.dirname(__FILE__), "../lib/vitae/server/config.ru")
-  s.options[:Port]    = 3141 unless port_set_by_user
+class VitaeCommands < Thor
+  include Thor::Actions
+
+  default_task :create
+
+  desc "create [project_name]", "Create a new vitae project"
+  def create(name)
+    puts "creating #{name}..."
+  end
+
+  desc "server [-p 3000]", "Start the vitae server."
+  def server
+    require "rack"
+    
+    just_pretend = ARGV.delete "--pretend"
+    port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
+    
+    server = Rack::Server.new.tap do |s|
+      s.options[:config]  = File.join(File.dirname(__FILE__), "../lib/vitae/server/config.ru")
+      s.options[:Port]    = 3141 unless port_set_by_user
+    end
+    
+    say "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}", :green
+    
+    server.start unless just_pretend
+  end
+
 end
 
-puts "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}"
-
-server.start
+VitaeCommands.start

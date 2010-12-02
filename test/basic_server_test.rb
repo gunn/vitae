@@ -2,7 +2,7 @@ require ::File.expand_path('../../lib/vitae/server/config/environment',  __FILE_
 require 'test_helper'
 require 'rack/test'
 
-class BasicServerTest < Test::Unit::TestCase
+class BasicServerTest < VitaeTestCase
   include Rack::Test::Methods
 
   def app
