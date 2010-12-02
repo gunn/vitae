@@ -1,6 +1,9 @@
 require 'fileutils'
 require 'test/unit'
 
+require 'lib/vitae/server/server'
+require 'rack/test'
+
 VITAE_TEST_DIR   = ::File.expand_path('../../tmp', __FILE__)
 VITAE_EXECUTABLE = ::File.expand_path('../../bin/vitae', __FILE__)
 
@@ -38,4 +41,12 @@ class VitaeTestCase < Test::Unit::TestCase
     File.exist? ::File.expand_path(path, vitae_test_dir)
   end
   
+end
+
+class VitaeServerTestCase < VitaeTestCase
+  include Rack::Test::Methods
+
+  def app
+    Server
+  end
 end

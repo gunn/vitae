@@ -1,4 +1,4 @@
-class BasicServerTest < VitaeServerTestCase
+class ActiveServerTest < VitaeServerTestCase
 
   test "the homepage loads" do
     get '/'
