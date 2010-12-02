@@ -2,6 +2,8 @@
 require "rubygems"
 require "thor"
 
+require File.expand_path('../../lib/vitae', __FILE__)
+
 module Vitae
   class CLI < Thor
     include Thor::Actions
@@ -40,9 +42,11 @@ module Vitae
         s.options[:config]  = File.join(File.dirname(__FILE__), "../config.ru")
         s.options[:Port]    = 3141 unless port_set_by_user
       end
-    
+      
+      require "vitae/server/server"
+      Server.project_root = Dir.pwd
+      
       say "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}", :green
-    
       server.start unless just_pretend
     end
 

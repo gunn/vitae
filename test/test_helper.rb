@@ -1,7 +1,8 @@
 require 'fileutils'
 require 'test/unit'
 
-require 'lib/vitae/server/server'
+require File.expand_path('../../lib/vitae', __FILE__)
+require 'vitae/server/server'
 require 'rack/test'
 
 VITAE_TEST_DIR   = ::File.expand_path('../../tmp', __FILE__)
@@ -25,12 +26,19 @@ class VitaeTestCase < Test::Unit::TestCase
     VITAE_EXECUTABLE
   end
   
-  %w[server create].each do |command|
+  %w[server].each do |command|
     define_method "vitae_#{command}" do |*args|
       args = args.first
       FileUtils.cd vitae_test_dir
       `#{vitae_executable} #{command} #{args} 2>&1`
     end
+  end
+  
+  def vitae_create args=""
+    FileUtils.cd vitae_test_dir
+    project_name = args.split(/\s+/).first || ""
+    Server.project_root = File.join(vitae_test_dir, project_name)
+    `#{vitae_executable} create #{args} 2>&1`
   end
   
   def clear_test_dir
