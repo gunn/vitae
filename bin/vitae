@@ -37,7 +37,7 @@ module Vitae
       port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
     
       server = Rack::Server.new.tap do |s|
-        s.options[:config]  = File.join(File.dirname(__FILE__), "../lib/vitae/server/config.ru")
+        s.options[:config]  = File.join(File.dirname(__FILE__), "../config.ru")
         s.options[:Port]    = 3141 unless port_set_by_user
       end
     

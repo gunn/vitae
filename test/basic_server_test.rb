@@ -1,12 +1,11 @@
-require ::File.expand_path('../../lib/vitae/server/config/environment',  __FILE__)
-require 'test_helper'
+require 'lib/vitae/server/server'
 require 'rack/test'
 
 class BasicServerTest < VitaeTestCase
   include Rack::Test::Methods
 
   def app
-    Server::Application
+    Server
   end
 
   test "the homepage loads" do

@@ -1,7 +1,3 @@
-require 'test_helper'
-# require 'net/http'
-# require 'uri'
-
 class VitaeExecutableTest < VitaeTestCase
   
   test "create gives help when called without args" do
