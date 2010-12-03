@@ -25,21 +25,18 @@ module Vitae
           template "cvs/default.yaml.tt", "#{name}/cvs/#{cv_name}.yaml"
         end
       else
-        templates = Dir.entries(File.join(CLI.source_root, "cvs")) - [".", "..", "default.yaml.tt"]
-        puts templates
+        templates = Dir.entries(File.join(CLI.source_root, "cvs")) - [".", "..", ".DS_Store", "default.yaml.tt"]
         templates.each do |template_name|
           template "cvs/#{template_name}", "#{name}/cvs/#{template_name.sub('.tt', '')}"
         end
       end
-    
-      create_file "#{name}/themes/default/application.js" do
-        "// I'm javascript!"
+      
+      themes = Dir.entries(File.join(CLI.source_root, "themes")) - [".", "..", ".DS_Store"]
+      themes.each do |theme_name|
+        template "themes/#{theme_name}/application.js", "#{name}/themes/#{theme_name}/application.js"
+        template "themes/#{theme_name}/application.css", "#{name}/themes/#{theme_name}/application.css"
       end
-    
-      create_file "#{name}/themes/default/application.css" do
-        "/* I'm CSS! */"
-      end
-    
+      
     end
 
     desc "server [-p 3000]", "Start the vitae server."
