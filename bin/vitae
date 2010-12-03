@@ -17,24 +17,25 @@ module Vitae
 
     desc "create [project_name]", "Create a new vitae project"
     def create(name, *cv_names)
+      self.destination_root = name
       puts "creating #{name}..."
       
       if cv_names.size > 0
         cv_names.each do |cv_name|
           @name = cv_name
-          template "cvs/default.yaml.tt", "#{name}/cvs/#{cv_name}.yaml"
+          template "cvs/default.yaml.tt", "cvs/#{cv_name}.yaml"
         end
       else
         templates = Dir.entries(File.join(CLI.source_root, "cvs")) - [".", "..", ".DS_Store", "default.yaml.tt"]
         templates.each do |template_name|
-          template "cvs/#{template_name}", "#{name}/cvs/#{template_name.sub('.tt', '')}"
+          template "cvs/#{template_name}"
         end
       end
       
       themes = Dir.entries(File.join(CLI.source_root, "themes")) - [".", "..", ".DS_Store"]
       themes.each do |theme_name|
-        template "themes/#{theme_name}/application.js", "#{name}/themes/#{theme_name}/application.js"
-        template "themes/#{theme_name}/application.css", "#{name}/themes/#{theme_name}/application.css"
+        copy_file "themes/#{theme_name}/application.js"
+        copy_file "themes/#{theme_name}/application.css"
       end
       
     end
