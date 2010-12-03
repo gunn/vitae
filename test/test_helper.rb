@@ -57,4 +57,22 @@ class VitaeServerTestCase < VitaeTestCase
   def app
     Server
   end
+  
+  def assert_matches matches, actual=last_response.body
+    matches.each do |match|
+      assert_match match, actual
+    end
+  end
+  
+  def assert_select selector, content=nil, text=last_response.body
+    matches = Nokogiri::HTML.parse(text).css(selector)
+    assert(matches.size>0, "No matches for the selector '#{selector}'.")
+    if content
+      matches.each do |el|
+        return assert(true) if el.content.match content
+      end
+      assert(false, "No matches for '#{content}' with the selector '#{selector}'.")
+    end
+  end
+  
 end

@@ -1,4 +1,5 @@
 require "test_helper"
+require "nokogiri"
 
 class ActiveServerTest < VitaeServerTestCase
 
@@ -8,13 +9,19 @@ class ActiveServerTest < VitaeServerTestCase
     
     get '/'
     assert last_response.ok?
-    assert_matches(%w[Derek Arthur Sajal], last_response.body)
+    assert_matches(%w[Derek Arthur Sajal])
+    assert_select("a[href='/sajal']", "Sajal")
   end
   
-  def assert_matches matches, actual
-    matches.each do |match|
-      assert_match match, actual
-    end
+  test "a CV gets its own show page" do
+    clear_test_dir
+    vitae_create "resumes arthur_gunn"
+    
+    get '/arthur_gunn'
+    assert last_response.ok?
+    
+    assert_select("h1", "Arthur Gunn")
+    assert_select("a[href='/']")
   end
   
 end
