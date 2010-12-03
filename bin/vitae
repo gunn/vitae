@@ -26,13 +26,15 @@ module Vitae
           template "cvs/default.yaml.tt", "cvs/#{cv_name}.yaml"
         end
       else
-        templates = Dir.entries(File.join(CLI.source_root, "cvs")) - [".", "..", ".DS_Store", "default.yaml.tt"]
+        templates = Dir.glob(File.join(CLI.source_root, "cvs/*.yaml")).
+                        map{|f| File.basename(f)} -["default.yaml.tt"]
+        
         templates.each do |template_name|
-          template "cvs/#{template_name}"
+          template "cvs/#{template_name}", "cvs/#{template_name.sub(/\.tt$/, '')}"
         end
       end
       
-      themes = Dir.entries(File.join(CLI.source_root, "themes")) - [".", "..", ".DS_Store"]
+      themes = Dir.glob(File.join(CLI.source_root, "themes/*")).map{|f| File.basename(f)}            
       themes.each do |theme_name|
         copy_file "themes/#{theme_name}/application.js"
         copy_file "themes/#{theme_name}/application.css"

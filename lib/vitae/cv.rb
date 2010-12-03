@@ -1,7 +1,7 @@
 class CV
   
   def self.all
-    cvs = Dir.entries(File.join(Server.project_root, "cvs")) - [".", "..", ".DS_Store"]
+    cvs = Dir.glob(File.join(Server.project_root, "cvs/*.yaml"))
     cvs.map do |cv|
       CV.new(cv)
     end
@@ -13,8 +13,8 @@ class CV
     end
   end
   
-  def initialize yaml_file_name
-    @name = yaml_file_name.sub(/\.yaml$/, '')
+  def initialize yaml_file
+    @name = File.basename(yaml_file, '.yaml')
   end
   
   def name
