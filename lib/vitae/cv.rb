@@ -33,4 +33,8 @@ class CV
     "/#{name}"
   end
   
+  def theme
+    "default"
+  end
+  
 end

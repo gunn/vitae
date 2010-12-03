@@ -1,9 +1,8 @@
 !!! 5
 %html
   %head
-    %title
-      Vitae #{ @cv && ": "+ @cv.human_name }
-    %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
+    %title Vitae #{ @cv && ": "+ @cv.human_name }
+    = include_theme_assets
   %body
     #header
       %h1#title= @cv && @cv.human_name || "Vitae"

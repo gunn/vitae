@@ -1,7 +1,9 @@
 require 'sinatra/base'
 require 'haml'
+require "vitae/server/helpers"
 
 class Server < Sinatra::Base
+  helpers Helpers
   set :views, File.dirname(__FILE__) + '/views'
   
   get '/' do
@@ -15,14 +17,6 @@ class Server < Sinatra::Base
   end
   
   
-  helpers do
-    def link_to(name, link=nil, options={})
-      link ||= name.split(/\s+/).join('_')
-      attrs = options.map { |k,v| "#{k}='#{v}'" }.join(" ")
-      "<a href='#{link}' #{attrs}>#{name}</a>"
-    end
-  end
-  
   
   @@project_root = nil
   def self.project_root
@@ -30,6 +24,7 @@ class Server < Sinatra::Base
   end
   
   def self.project_root= root
+    set :public, File.join(root, "themes")
     @@project_root = root
   end
   
