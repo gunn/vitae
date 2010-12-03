@@ -2,12 +2,14 @@ PATH
   remote: .
   specs:
     vitae (0.0.2)
+      haml
       sinatra
       thor
 
 GEM
   remote: http://rubygems.org/
   specs:
+    haml (3.0.24)
     nokogiri (1.4.3.1)
     rack (1.2.1)
     sinatra (1.1.0)
@@ -20,6 +22,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  haml
   nokogiri
   sinatra
   thor

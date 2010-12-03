@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.description = %q{Vitae is to CVs what rubygems is to ruby code. Now I just need to program it.}
   
   s.add_dependency "sinatra"
+  s.add_dependency "haml"
   s.add_dependency "thor"
   
   s.add_development_dependency "nokogiri"
