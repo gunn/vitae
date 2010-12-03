@@ -1,0 +1,5 @@
+name: <%= @name %>
+
+contact:
+  homepage: http://<%= @name %>.me/
+  email: <%= @name %>@gmail.com

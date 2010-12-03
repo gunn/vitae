@@ -2,5 +2,4 @@
 pkg/*
 *.gem
 .bundle
-cvs
-themes
+tmp

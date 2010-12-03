@@ -1,9 +1,9 @@
 class CV
   
   def self.all
-    cv_dirs = Dir.entries(File.join(Server.project_root, "cvs")) - [".", "..", ".DS_Store"]
-    cv_dirs.map do |dir|
-      CV.new(dir)
+    cvs = Dir.entries(File.join(Server.project_root, "cvs")) - [".", "..", ".DS_Store"]
+    cvs.map do |cv|
+      CV.new(cv)
     end
   end
   
@@ -13,12 +13,12 @@ class CV
     end
   end
   
-  def initialize dir
-    @dir = dir
+  def initialize yaml_file_name
+    @name = yaml_file_name.sub(/\.yaml$/, '')
   end
   
   def name
-    @dir
+    @name
   end
   
   def human_name

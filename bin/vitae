@@ -7,17 +7,28 @@ require File.expand_path('../../lib/vitae', __FILE__)
 module Vitae
   class CLI < Thor
     include Thor::Actions
-
+    
+    def self.source_root
+      File.expand_path('../../lib/vitae/templates', __FILE__)
+    end
+    
+    
     default_task :create
 
     desc "create [project_name]", "Create a new vitae project"
     def create(name, *cv_names)
       puts "creating #{name}..."
-    
-      cv_names = ["default"] if cv_names.size==0
-      cv_names.each do |cv_name|
-        create_file "#{name}/cvs/#{cv_name}/cv.yaml" do
-          "CV file for #{cv_name}"
+      
+      if cv_names.size > 0
+        cv_names.each do |cv_name|
+          @name = cv_name
+          template "cvs/default.yaml.tt", "#{name}/cvs/#{cv_name}.yaml"
+        end
+      else
+        templates = Dir.entries(File.join(CLI.source_root, "cvs")) - [".", "..", "default.yaml.tt"]
+        puts templates
+        templates.each do |template_name|
+          template "cvs/#{template_name}", "#{name}/cvs/#{template_name.sub('.tt', '')}"
         end
       end
     

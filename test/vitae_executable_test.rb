@@ -8,12 +8,27 @@ class VitaeExecutableTest < VitaeTestCase
   end
   
   test "create generates a project" do
+    clear_test_dir
     output = vitae_create("my_cvs")
-    # assert_match(/project created/, output)
     
-    files = %w[my_cvs/cvs/default/cv.yaml
+    files = %w[my_cvs/cvs/arthur_gunn.yaml
       my_cvs/themes/default/application.js
       my_cvs/themes/default/application.css]
+    
+    files.each do |file|
+      assert(vitae_file?( file ), "#{file} should exist in #{vitae_test_dir}")
+    end
+  end
+  
+  test "create generates a project with provided names" do
+    clear_test_dir
+    output = vitae_create("resume arthur_gunn derek sajal")
+    
+    files = %w[resume/cvs/arthur_gunn.yaml
+      resume/cvs/derek.yaml
+      resume/cvs/sajal.yaml
+      resume/themes/default/application.js
+      resume/themes/default/application.css]
     
     files.each do |file|
       assert(vitae_file?( file ), "#{file} should exist in #{vitae_test_dir}")
