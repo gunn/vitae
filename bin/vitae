@@ -26,7 +26,7 @@ module Vitae
           template "cvs/default.yaml.tt", "cvs/#{cv_name}.yaml"
         end
       else
-        templates = Dir.glob(File.join(CLI.source_root, "cvs/*.yaml")).
+        templates = Dir.glob(File.join(CLI.source_root, "cvs/*.yaml*")).
                         map{|f| File.basename(f)} -["default.yaml.tt"]
         
         templates.each do |template_name|
