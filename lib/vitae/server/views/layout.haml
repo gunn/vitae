@@ -1,0 +1,11 @@
+!!! 5
+%html
+  %head
+    %title
+      Vitae #{ @cv && ": "+ @cv.human_name }
+    %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
+  %body
+    #header
+      %h1#title= @cv && @cv.human_name || "Vitae"
+    #content
+      = yield

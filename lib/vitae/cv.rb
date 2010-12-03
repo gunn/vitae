@@ -1,7 +1,7 @@
 class CV
   
   def self.all
-    cv_dirs = Dir.entries(File.join(Server.project_root, "cvs")) - [".", ".."]
+    cv_dirs = Dir.entries(File.join(Server.project_root, "cvs")) - [".", "..", ".DS_Store"]
     cv_dirs.map do |dir|
       CV.new(dir)
     end
@@ -27,6 +27,10 @@ class CV
   
   def to_s
     human_name
+  end
+  
+  def link
+    "/#{name}"
   end
   
 end
