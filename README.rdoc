@@ -1,5 +1,63 @@
-== Vitae
+= Vitae
 
 Vitae is to CVs what rubygems is to ruby code.
 
-Now I just need to program it.
+It's also very under development right now, and not very useful yet. Come back soon!
+
+
+=== Usage
+First install the vitae gem:
+  $: sudo gem i vitae
+
+Now lets create a new project called my_cv_project, with some named CVs:
+  $: vitae create my_cv_project arthur_gunn sajal_shah
+  
+  creating my_cv_project...
+        create  cvs/arthur_gunn.yaml
+        create  cvs/sajal_shah.yaml
+        create  themes/default/application.js
+        create  themes/default/application.css
+  
+Great, it's created our two named CVs in the my_cv_project/cvs directory from a basic yaml template. Edit these yaml files with your own info (note: currently data is not actually read from these, that will change soon).
+
+Once your done editing, start up the server:
+  $: cd my_cv_project
+  $: vitae server
+  Serving CVs at 0.0.0.0:3141
+
+Enjoy!
+
+=== Future plans
+1. Data should actually be read from the yaml files.
+2. Vitae should com bundled with better default templates - CSS, JS and YAML.
+3. Support for multiple themes.
+4. The clever stuff
+
+=== The clever stuff
+Much like rubygems or git
+
+Push a CV:
+  $: vitae push vitae.gunn.co.nz arthur_gunn
+  
+  pushing...
+  1 CV pushed
+  CV available at http://vitae.gunn.co.nz/arthur_gunn
+  
+Pull a CV:
+  $: vitae pull vitae.gunn.co.nz sajal_shah
+  
+  pulling...
+  1 CV pulled
+  2 themes pulled
+  CV pulled to cvs/sajal_shah
+  Theme pulled to themes/darkness
+  Theme pulled to themes/espresso
+
+=== Want to help?
+Just the github usual for development - fork, commit, pull request, bonus points for tests.
+Have a play and report bugs, request features via the issue tracker.
+
+Feel free to email me at arthur@gunn.co.nz
+
+=== Credits
+Development by Arthur Gunn.
