@@ -10,13 +10,13 @@ Gem::Specification.new do |s|
   s.email       = ["arthur@gunn.co.nz"]
   s.homepage    = "https://github.com/gunn/vitae"
   s.summary     = %q{A structured CV publishing system.}
-  s.description = %q{Vitae is to CVs what rubygems is to ruby code. Now I just need to program it.}
+  s.description = %q{Vitae is to CVs what rubygems is to ruby code. Under heavy development, not very useful yet.}
   
-  s.add_dependency "sinatra"
-  s.add_dependency "haml"
-  s.add_dependency "thor"
+  s.add_dependency "sinatra", "~>1.1.0"
+  s.add_dependency "haml", "~>3.0.0"
+  s.add_dependency "thor", "~>0.14.0"
   
-  s.add_development_dependency "nokogiri"
+  s.add_development_dependency "nokogiri", "~>1.4.0"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
