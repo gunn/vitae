@@ -8,10 +8,6 @@
         %li
           %span.label= key
           = link_to value.sub(/^https?:\/\//, ''), value, :class => "url"
-      - when /^mailto:/
-        %li
-          %span.label= key
-          = link_to value.sub(/^mailto:/, ''), value, :class => "email"
       - when Hash
         - case key
         - when "phones"
@@ -31,6 +27,11 @@
           %li.nick
             %span.label= key
             %span.fn.nickname= value
+        - when /e-?mail/
+          %li
+            %span.label= key
+            - mailto_less = value.sub(/^mailto:/, '')
+            = link_to mailto_less, "mailto:#{mailto_less}", :class => "email"
         - else
           %li
             %span.label= key
