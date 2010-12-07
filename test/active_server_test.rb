@@ -4,38 +4,35 @@ require "nokogiri"
 class ActiveServerTest < VitaeServerTestCase
 
   test "the homepage contains lists the cvs we're hosting" do
-    clear_test_dir
-    vitae_create "resumes derek arthur sajal"
-    
-    get '/'
-    assert last_response.ok?
-    assert_matches %w[Derek Arthur Sajal]
-    assert_select  "a[href='/sajal']", "Sajal"
-    
-    check_includes_standard_assets
+    with_project :dkaz do
+      get '/'
+      assert last_response.ok?
+      assert_matches %w[Katya Derek Arthur Zeena]
+      assert_select  "a[href='/katya']", "Katya"
+      
+      check_includes_standard_assets
+    end
   end
   
   test "a CV gets its own show page" do
-    clear_test_dir
-    vitae_create "resumes zeena_gunn"
+    with_project :sals do
+      get '/sajal_shah'
+      assert last_response.ok?
     
-    get '/zeena_gunn'
-    assert last_response.ok?
+      assert_select "h1", "Sajal Shah"
+      assert_select "a[href='/']"
     
-    assert_select "h1", "Zeena Gunn"
-    assert_select "a[href='/']"
-    
-    check_includes_standard_assets
+      check_includes_standard_assets
+    end
   end
   
   test "a CV doesn't mindlessly blat out converted yaml data" do
-    clear_test_dir
-    vitae_create "resumes"
+    with_project :default do
+      get '/arthur_gunn'
+      assert last_response.ok?
     
-    get '/arthur_gunn'
-    assert last_response.ok?
-    
-    assert_no_select "h2", "vitae_config"
+      assert_no_select "h2", "vitae_config"
+    end
   end
   
   def check_includes_standard_assets theme="default"

@@ -12,6 +12,12 @@ class VitaeTestCase < Test::Unit::TestCase
     define_method name, &block
   end
   
+  @@projects = {
+    :default => "",
+    :sals => "sajal_shah",
+    :dkaz => "derek katya arthur zeena"
+  }
+  
   @@vitae_test_dir   = File.expand_path('../../tmp', __FILE__)
   @@vitae_executable = File.expand_path('../../bin/vitae', __FILE__)
   
@@ -40,6 +46,15 @@ class VitaeTestCase < Test::Unit::TestCase
     project_name = args.split(/\s+/).first || ""
     Vitae::project_root = File.join(vitae_test_dir, project_name)
     `#{vitae_executable} create #{args} 2>&1`
+  end
+  
+  def with_project name, &block
+    project_dir = File.join(vitae_test_dir, name.to_s)
+    `#{vitae_executable} create #{project_dir} #{@@projects[name]}` if !File.exist?( project_dir )
+    Vitae::project_root = project_dir
+    yield
+  ensure
+    Vitae::project_root = ''
   end
   
   def clear_test_dir
