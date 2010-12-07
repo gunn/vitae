@@ -1,12 +1,9 @@
-- reserved_keys = %w[nickname]
-
 .vcard
   %h1#title.fn= @cv.name
-  /%span.fn.nickname{:style => "display: none;"}= @cv["contact"]["nickname"]
+  
   
   %ul#quick-links
     - @cv["contact"].each do |key, value|
-      - next if reserved_keys.include?(key)
       - case value
       - when /^https?:\/\//
         %li
@@ -30,5 +27,12 @@
               - value.each do |address_field, address_value|
                 %span{:class => address_field}= address_value
       - else
-        %span.label= key
-        = value
+        - case key
+        - when "nickname"
+          %li.nick
+            %span.label= key
+            %span.fn.nickname= value
+        - else
+          %li
+            %span.label= key
+            = value

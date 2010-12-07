@@ -199,6 +199,14 @@ em {
   color: #333;
 }
 
+
+
+.nick {
+	display: none;
+}
+
+
+
 #summarize { color: #555; position: absolute; top: 1em; right: 1em; width: 10em; }
 
 #projects-contributed-to { margin-left: 1em; }

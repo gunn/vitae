@@ -1,5 +1,4 @@
 require "yaml"
-# require "ostruct"
 
 class CV
   attr_reader :file_name
