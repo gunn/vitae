@@ -3,17 +3,27 @@ require "yaml"
 class CV
   attr_reader :file_name
   
-  def self.all
-    raise "Vitae::project_root is not set" unless Vitae::project_root
-    cvs = Dir.glob(File.join(Vitae::project_root, "cvs/*.yaml"))
-    cvs.map do |cv|
-      CV.new(cv)
+  class << self
+    def all
+      raise "Vitae::project_root is not set" unless Vitae::project_root
+      cvs = Dir.glob(File.join(Vitae::project_root, "cvs/*.yaml"))
+      cvs.map do |cv|
+        CV.new(cv)
+      end
     end
-  end
-  
-  def self.find file_name
-    all.find do |cv|
-      cv.file_name == file_name
+
+    def find file_name
+      all.find do |cv|
+        cv.file_name == file_name
+      end
+    end
+    
+    def first
+      all.first
+    end
+    
+    def last
+      all.last
     end
   end
   
@@ -37,6 +47,12 @@ class CV
   
   def [] key
     data_hash[key]
+  end
+  
+  def each &block
+    data_hash.each do |k, v|
+      yield k, v
+    end
   end
   
   

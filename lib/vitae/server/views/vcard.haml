@@ -1,7 +1,6 @@
 .vcard
   %h1#title.fn= @cv.name
   
-  
   %ul#quick-links
     - @cv["contact"].each do |key, value|
       - case value

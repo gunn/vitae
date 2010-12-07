@@ -12,4 +12,15 @@ module Vitae
     Server.set :public, File.join(root, "themes") if root && defined?(Server)
     @@project_root = root
   end
+  
+  module OrderedHashExtensions
+    def except(exceptions)
+      reject do |k, v|
+        exceptions.include? k
+      end
+    end
+  end
+  
 end
+
+ActiveSupport::OrderedHash.send :include, Vitae::OrderedHashExtensions
