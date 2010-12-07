@@ -23,8 +23,8 @@
           %li
             %span.label= key
             %span.adr
-              - value.each do |address_field, address_value|
-                %span{:class => address_field}= address_value
+              - value.each_with_index do |(address_field, address_value), i|
+                %span{:class => address_field}= "#{address_value}#{', ' if i<value.size-1}"
       - else
         - case key
         - when "nickname"
