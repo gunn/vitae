@@ -13,7 +13,7 @@ class Server < Sinatra::Base
   end
   
   get "/favicon.ico" do
-    ""
+    send_file File.join(File.dirname(__FILE__), "assets", "favicon.ico"), :type => 'image/x-icon', :disposition => 'inline'
   end
   
   get '/:name' do
