@@ -89,7 +89,7 @@ class VitaeServerTestCase < VitaeTestCase
     if !want_matches
       assert(!did_match, "Found matches for the selector '#{selector}', but we didn't want any.")
     else
-      assert(did_match, "No matches for the selector '#{selector}'.")
+      assert(did_match, "No matches for the selector '#{selector}'.") if !content
       assert(did_match, "No matches for '#{content}' with the selector '#{selector}'.") if content
     end
   
