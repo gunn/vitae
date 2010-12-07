@@ -1,10 +1,11 @@
-name: <%= @human_name %>
+--- !omap
+- name: <%= @human_name %>
 
-vitae_config:
-  email: <%= @url_name %>@gmail.com
-  crypted_password: d7f42977c55e23fc92e4190c6adc07862a572879
-  password_salt: 8f7a8cf04f4e
+- vitae_config: !omap
+    - email: <%= @url_name %>@gmail.com
+    - crypted_password: d7f42977c55e23fc92e4190c6adc07862a572879
+    - password_salt: 8f7a8cf04f4e
 
-contact:
-  email: <%= @url_name %>@gmail.com
-  homepage: http://<%= @url_name %>.me/
+- contact: !omap
+    - email: <%= @url_name %>@gmail.com
+    - homepage: http://<%= @url_name %>.me/

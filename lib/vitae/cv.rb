@@ -49,6 +49,10 @@ class CV
     data_hash[key]
   end
   
+  def except exceptions=[]
+    data_hash.except( exceptions )
+  end
+  
   def each &block
     data_hash.each do |k, v|
       yield k, v

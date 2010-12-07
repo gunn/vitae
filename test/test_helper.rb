@@ -65,17 +65,35 @@ class VitaeServerTestCase < VitaeTestCase
     end
   end
   
-  def assert_select selector, content=nil, text=last_response.body
+  def assert_no_select selector, content=nil
+    assert_select selector, content, :want_matches => false
+  end
+  
+  def assert_select selector, content=nil, options={}
+    options = { :want_matches => true }.merge(options)
+    
+    text         = options[:text] || last_response.body
+    want_matches = options[:want_matches]
+    
     selector = "#{@parent_selector} #{selector}" if @parent_selector
     
     elements = Nokogiri::HTML.parse(text).css(selector)
-    assert(elements.size>0, "No matches for the selector '#{selector}'.")
-    if content
-      did_match = elements.any? { |el| el.content.match content }
-      assert(did_match, "No matches for '#{content}' with the selector '#{selector}'.")
+    have_matches = elements.size>0
+    
+    did_match = if content
+      elements.any? { |el| el.content.match content }
+    else
+      have_matches
     end
     
-    if block_given? && elements.size>0
+    if !want_matches
+      assert(!did_match, "Found matches for the selector '#{selector}', but we didn't want any.")
+    else
+      assert(did_match, "No matches for the selector '#{selector}'.")
+      assert(did_match, "No matches for '#{content}' with the selector '#{selector}'.") if content
+    end
+  
+    if block_given? && have_matches
       begin
         in_scope, @parent_selector = @parent_selector, selector
         yield

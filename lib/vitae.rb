@@ -14,7 +14,7 @@ module Vitae
   end
   
   module OrderedHashExtensions
-    def except(exceptions)
+    def except(exceptions=[])
       reject do |k, v|
         exceptions.include? k
       end
@@ -23,4 +23,4 @@ module Vitae
   
 end
 
-ActiveSupport::OrderedHash.send :include, Vitae::OrderedHashExtensions
+Hash.send :include, Vitae::OrderedHashExtensions

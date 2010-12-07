@@ -1,5 +1,5 @@
 = haml :vcard
-- @cv.each do |category, value|
+- @cv.except(%w[vitae_config contact]).each do |category, value|
   %h2= category
   .category{ :id => category }
     - if value.is_a? String

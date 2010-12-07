@@ -17,15 +17,25 @@ class ActiveServerTest < VitaeServerTestCase
   
   test "a CV gets its own show page" do
     clear_test_dir
-    vitae_create "resumes arthur_gunn"
+    vitae_create "resumes zeena_gunn"
+    
+    get '/zeena_gunn'
+    assert last_response.ok?
+    
+    assert_select "h1", "Zeena Gunn"
+    assert_select "a[href='/']"
+    
+    check_includes_standard_assets
+  end
+  
+  test "a CV doesn't mindlessly blat out converted yaml data" do
+    clear_test_dir
+    vitae_create "resumes"
     
     get '/arthur_gunn'
     assert last_response.ok?
     
-    assert_select "h1", "Arthur Gunn"
-    assert_select "a[href='/']"
-    
-    check_includes_standard_assets
+    assert_no_select "h2", "vitae_config"
   end
   
   def check_includes_standard_assets theme="default"
