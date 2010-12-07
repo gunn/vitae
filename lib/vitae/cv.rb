@@ -1,5 +1,5 @@
 require "yaml"
-require "ostruct"
+# require "ostruct"
 
 class CV
   attr_reader :file_name
@@ -24,11 +24,6 @@ class CV
   end
   
   
-  def data
-    # @data ||= OpenStruct.new(YAML::load_file(@yaml_file))
-    @data ||= OpenStruct.new(data_hash)
-  end
-  
   def name
     @name ||=  data_hash.delete("name")
   end
@@ -39,6 +34,10 @@ class CV
   
   def data_hash
     @data_hash ||= YAML::load_file(@yaml_file)
+  end
+  
+  def [] key
+    data_hash[key]
   end
   
   
@@ -54,8 +53,8 @@ class CV
     name
   end
   
-  def method_missing name, *args, &block
-    data.send name, *args, &block
-  end
+  # def method_missing name, *args, &block
+  #   data.send name, *args, &block
+  # end
   
 end

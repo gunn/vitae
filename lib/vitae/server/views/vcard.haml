@@ -2,17 +2,17 @@
 
 .vcard
   %h1#title.fn= @cv.name
-  %span.fn.nickname{:style => "display: none;"}= @cv.contact["nickname"]
+  /%span.fn.nickname{:style => "display: none;"}= @cv["contact"]["nickname"]
   
   %ul#quick-links
-    - @cv.contact.each do |key, value|
+    - @cv["contact"].each do |key, value|
       - next if reserved_keys.include?(key)
       - case value
       - when /^https?:\/\//
         %li
           %span.label= key
           = link_to value.sub(/^https?:\/\//, ''), value, :class => "url"
-      - when /^mailto:/        
+      - when /^mailto:/
         %li
           %span.label= key
           = link_to value.sub(/^mailto:/, ''), value, :class => "email"

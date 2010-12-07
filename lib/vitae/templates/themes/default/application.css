@@ -127,6 +127,12 @@ ul {
   width: 6em;
   padding-right: 1em;
   text-align: right;
+	vertical-align: top;
+}
+
+#quick-links li span.adr {
+	display: inline-block;
+	width: 15em;
 }
 
 #quick-links li a:hover, #quick-links li a:focus {
