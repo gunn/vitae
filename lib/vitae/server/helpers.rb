@@ -9,8 +9,9 @@ module Helpers
     html
   end
   
-  def link_to(text, link=nil, options={})
-    link ||= text.split(/\s+/).join('_').downcase
+  def link_to(text, *args)
+    options = args.last.is_a?(Hash) ? args.pop : {}
+    link = args.first || text.split(/\s+/).join('_').downcase
     content_tag :a, text, options.merge({:href => link})
   end
   

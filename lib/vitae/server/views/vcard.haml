@@ -1,0 +1,34 @@
+- reserved_keys = %w[nickname]
+
+.vcard
+  %h1#title.fn= @cv.name
+  %span.fn.nickname{:style => "display: none;"}= @cv.contact["nickname"]
+  
+  %ul#quick-links
+    - @cv.contact.each do |key, value|
+      - next if reserved_keys.include?(key)
+      - case value
+      - when /^https?:\/\//
+        %li
+          %span.label= key
+          = link_to value.sub(/^https?:\/\//, ''), value, :class => "url"
+      - when /^mailto:/        
+        %li
+          %span.label= key
+          = link_to value.sub(/^mailto:/, ''), value, :class => "email"
+      - when Hash
+        - case key
+        - when "phones"
+          - value.each do |phone, number|          
+            %li.tel
+              %span.label.type= phone
+              %span.value= number
+        - when "address"
+          %li
+            %span.label= key
+            %span.adr
+              - value.each do |address_field, address_value|
+                %span{:class => address_field}= address_value
+      - else
+        %span.label= key
+        = value

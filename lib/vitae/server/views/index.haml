@@ -1,3 +1,5 @@
+%h1#title Vitae
 %ul
   - @cvs.each do |cv|
-    %li= link_to cv.human_name, cv.link
+    %li
+      %h2= link_to cv.name, cv.link

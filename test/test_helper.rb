@@ -1,3 +1,4 @@
+require 'rubygems'
 require 'fileutils'
 require 'test/unit'
 
@@ -5,8 +6,8 @@ require File.expand_path('../../lib/vitae', __FILE__)
 require 'vitae/server/server'
 require 'rack/test'
 
-VITAE_TEST_DIR   = ::File.expand_path('../../tmp', __FILE__)
-VITAE_EXECUTABLE = ::File.expand_path('../../bin/vitae', __FILE__)
+VITAE_TEST_DIR   = File.expand_path('../../tmp', __FILE__)
+VITAE_EXECUTABLE = File.expand_path('../../bin/vitae', __FILE__)
 
 class VitaeTestCase < Test::Unit::TestCase
   def self.test name, &block
@@ -37,7 +38,7 @@ class VitaeTestCase < Test::Unit::TestCase
   def vitae_create args=""
     FileUtils.cd vitae_test_dir
     project_name = args.split(/\s+/).first || ""
-    Server.project_root = File.join(vitae_test_dir, project_name)
+    Vitae::project_root = File.join(vitae_test_dir, project_name)
     `#{vitae_executable} create #{args} 2>&1`
   end
   
@@ -65,14 +66,24 @@ class VitaeServerTestCase < VitaeTestCase
   end
   
   def assert_select selector, content=nil, text=last_response.body
-    matches = Nokogiri::HTML.parse(text).css(selector)
-    assert(matches.size>0, "No matches for the selector '#{selector}'.")
+    selector = "#{@parent_selector} #{selector}" if @parent_selector
+    
+    elements = Nokogiri::HTML.parse(text).css(selector)
+    assert(elements.size>0, "No matches for the selector '#{selector}'.")
     if content
-      matches.each do |el|
-        return assert(true) if el.content.match content
-      end
-      assert(false, "No matches for '#{content}' with the selector '#{selector}'.")
+      did_match = elements.any? { |el| el.content.match content }
+      assert(did_match, "No matches for '#{content}' with the selector '#{selector}'.")
     end
+    
+    if block_given? && elements.size>0
+      begin
+        in_scope, @parent_selector = @parent_selector, selector
+        yield
+      ensure
+        @parent_selector = in_scope
+      end
+    end
+    
   end
   
 end

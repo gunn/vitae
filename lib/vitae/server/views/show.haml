@@ -1,1 +1,14 @@
+= haml :vcard
+- @cv.data_hash.each do |category, value|
+  %h2= category
+  .category{ :id => category }
+    - if value.is_a? String
+      = value
+    - else
+      - value.each do |subcategory, subvalue|
+        %h3= subcategory  
+        .subcategory{ :id => subcategory }
+          = subvalue
+%br
+%br
 =link_to "Vitae Home", "/"

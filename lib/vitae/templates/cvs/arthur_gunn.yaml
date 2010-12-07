@@ -1,5 +1,22 @@
+---
 name: Arthur Gunn
 
-contact:
-  homepage: http://arthurgunn.com
+vitae_config:
   email: arthur@gunn.co.nz
+  crypted_password: d7f42977c55e23fc92e4190c6adc07862a572879
+  password_salt: 8f7a8cf04f4e
+
+contact:
+  nickname: Arthur
+  e-mail: mailto:arthur@gunn.co.nz
+  homepage: http://arthurgunn.com
+  github: https://github.com/gunn
+  address: 
+    street-address: 96 London St.
+    locality: City Rise
+    region: Otago
+    country-name: New Zealand
+    postal-code: 9016
+  phones:
+    home: (03) 477 99 44
+    mobile: 027 477 7723

@@ -1,5 +1,10 @@
-name: <%= @name %>
+name: <%= @human_name %>
+
+vitae_config:
+  email: <%= @url_name %>@gmail.com
+  crypted_password: d7f42977c55e23fc92e4190c6adc07862a572879
+  password_salt: 8f7a8cf04f4e
 
 contact:
-  homepage: http://<%= @name %>.me/
-  email: <%= @name %>@gmail.com
+  email: <%= @url_name %>@gmail.com
+  homepage: http://<%= @url_name %>.me/

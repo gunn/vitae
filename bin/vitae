@@ -23,6 +23,8 @@ module Vitae
       if cv_names.size > 0
         cv_names.each do |cv_name|
           @name = cv_name
+          @human_name = cv_name.split(/[^a-z]+/i).map{|w|w.capitalize}.join(" ")
+          @url_name = @name.gsub(/[^a-z\-]+/i, "-")
           template "cvs/default.yaml.tt", "cvs/#{cv_name}.yaml"
         end
       else
@@ -55,7 +57,7 @@ module Vitae
       end
       
       require "vitae/server/server"
-      Server.project_root = Dir.pwd
+      Vitae::project_root = Dir.pwd
       
       say "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}", :green
       server.start unless just_pretend
