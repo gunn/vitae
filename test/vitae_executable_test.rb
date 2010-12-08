@@ -2,11 +2,6 @@ require "test_helper"
 
 class VitaeExecutableTest < VitaeTestCase
   
-  test "create gives help when called without args" do
-    output = vitae_create
-    assert_match('"create" was called incorrectly', output)
-  end
-  
   test "create generates a project" do
     clear_test_dir
     output = vitae_create("my_cvs")
@@ -45,8 +40,13 @@ class VitaeExecutableTest < VitaeTestCase
     assert_match(":1121", vitae_server("--pretend -p 1121"))
   end
   
-  test "the server gives rackup help" do
-    assert_match("Usage: rackup", vitae_server("-h"))
-  end
+  # test "the server gives rackup help" do
+  #   assert_match("Usage: rackup", vitae_server("-h"))
+  # end
+  # 
+  # test "create gives help when called without args" do
+  #   output = vitae_create
+  #   assert_match('"create" was called incorrectly', output)
+  # end
   
 end

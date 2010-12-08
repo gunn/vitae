@@ -2,6 +2,18 @@ require "test_helper"
 
 class UtilitiesTest < VitaeTestCase
   
+  test "we can capture stdout and stderr" do
+    captured_string = get_stdout_and_stderr do
+      puts "hello!"
+      print "h"
+      puts "i"
+      $stderr.print "bye!"
+    end
+    expected_string = "hello!\nhi\nbye!"
+    
+    assert_equal(expected_string, captured_string)
+  end
+  
   test "yaml can be ordered" do
     numbers_from_yaml = example_yaml_hash["numbers"].map { |k,v| "#{k} = #{v}" }.join("\n")
     
@@ -30,11 +42,10 @@ class UtilitiesTest < VitaeTestCase
   end
   
   test "CV.first and CV.last do their jobs" do    
-    clear_test_dir
-    vitae_create "resumes arthur brian cameron"
-    
-    assert_equal "Arthur", CV.first.name
-    assert_equal "Cameron", CV.last.name
+    with_project :dkaz do
+      assert_equal "Arthur", CV.first.name
+      assert_equal "Zeena", CV.last.name
+    end
   end
   
 end

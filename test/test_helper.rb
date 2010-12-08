@@ -1,9 +1,12 @@
-require 'rubygems'
 require 'fileutils'
 require 'test/unit'
+require "stringio"
 
 require File.expand_path('../../lib/vitae', __FILE__)
 require 'vitae/server/server'
+require "vitae/cli"
+
+require 'rubygems'
 require 'rack/test'
 
 class VitaeTestCase < Test::Unit::TestCase
@@ -33,28 +36,44 @@ class VitaeTestCase < Test::Unit::TestCase
     @@vitae_executable
   end
   
-  %w[server].each do |command|
-    define_method "vitae_#{command}" do |*args|
-      args = args.first
-      FileUtils.cd vitae_test_dir
-      `#{vitae_executable} #{command} #{args} 2>&1`
-    end
+  def vitae_server args=""
+    FileUtils.cd vitae_test_dir
+    cli = Vitae::CLI.new
+    real_argv = ARGV
+    ARGV.replace(args.split(/\s+/))
+    get_stdout_and_stderr { cli.server }
+  ensure
+    ARGV.replace(real_argv)
   end
   
   def vitae_create args=""
     FileUtils.cd vitae_test_dir
-    project_name = args.split(/\s+/).first || ""
+    cli = Vitae::CLI.new
+    args = args.split(/\s+/)
+    project_name = args.first || ""
     Vitae::project_root = File.join(vitae_test_dir, project_name)
-    `#{vitae_executable} create #{args} 2>&1`
+    
+    get_stdout_and_stderr { cli.create(*args) }
   end
   
   def with_project name, &block
     project_dir = File.join(vitae_test_dir, name.to_s)
-    `#{vitae_executable} create #{project_dir} #{@@projects[name]}` if !File.exist?( project_dir )
+    vitae_create "#{project_dir} #{@@projects[name]}" if !File.exist?( project_dir )
     Vitae::project_root = project_dir
     yield
   ensure
     Vitae::project_root = ''
+  end
+  
+  def get_stdout_and_stderr &block
+    new_out = StringIO.new
+    real_stdout, $stdout = $stdout, new_out
+    real_stderr, $stderr = $stderr, new_out
+    yield
+    new_out.string
+  ensure
+    $stderr = real_stderr
+    $stdout = real_stdout
   end
   
   def clear_test_dir

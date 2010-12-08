@@ -44,8 +44,8 @@ module Vitae
     desc "server [-p 3000]", "Start the vitae server."
     def server
       require "rack"
-    
       just_pretend = ARGV.delete "--pretend"
+      
       port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
     
       server = Rack::Server.new.tap do |s|
