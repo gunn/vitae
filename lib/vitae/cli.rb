@@ -42,23 +42,28 @@ module Vitae
     end
 
     desc "server [-p 3000]", "Start the vitae server."
-    def server
+    def server(project_path=".")
       require "rack"
       just_pretend = ARGV.delete "--pretend"
       
       port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
-    
+      
       server = Rack::Server.new.tap do |s|
-        s.options[:config]  = File.join(File.dirname(__FILE__), "../config.ru")
+        s.options[:config]  = File.join(File.dirname(__FILE__), "..", "..", "config.ru")
         s.options[:Port]    = 3141 unless port_set_by_user
       end
       
       require "vitae/server/server"
-      Vitae::project_root = Dir.pwd
+      Vitae::project_root = File.expand_path(project_path, Dir.pwd)
       
-      say "Serving CVs at #{server.options[:Host]}:#{server.options[:Port]}", :green
+      opts = server.options
+      cv_count = CV.all.size
+      cvs = "#{cv_count} CV#{'s' unless cv_count==1}"
+      project_dir_name = File.basename(Vitae::project_root)
+      
+      say "Serving #{cvs} at http://#{opts[:Host]}:#{opts[:Port]}/ from #{project_dir_name}\n", :green
       server.start unless just_pretend
     end
-
+    
   end
 end

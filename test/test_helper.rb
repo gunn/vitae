@@ -2,12 +2,12 @@ require 'fileutils'
 require 'test/unit'
 require "stringio"
 
+require 'rubygems'
+require 'rack/test'
+
 require File.expand_path('../../lib/vitae', __FILE__)
 require 'vitae/server/server'
 require "vitae/cli"
-
-require 'rubygems'
-require 'rack/test'
 
 class VitaeTestCase < Test::Unit::TestCase
   def self.test name, &block
@@ -37,7 +37,6 @@ class VitaeTestCase < Test::Unit::TestCase
   end
   
   def vitae_server args=""
-    FileUtils.cd vitae_test_dir
     cli = Vitae::CLI.new
     real_argv = ARGV
     ARGV.replace(args.split(/\s+/))
@@ -60,6 +59,7 @@ class VitaeTestCase < Test::Unit::TestCase
     project_dir = File.join(vitae_test_dir, name.to_s)
     vitae_create "#{project_dir} #{@@projects[name]}" if !File.exist?( project_dir )
     Vitae::project_root = project_dir
+    FileUtils.cd project_dir
     yield
   ensure
     Vitae::project_root = ''

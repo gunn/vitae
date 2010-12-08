@@ -30,8 +30,14 @@ class VitaeExecutableTest < VitaeTestCase
     end
   end
   
-  test "the server responds well" do
-    assert_match("Serving CVs", vitae_server("--pretend"))
+  test "the server tells us how many CVs it's serving, where and how" do
+    with_project :dkaz do
+      assert_match("Serving 4 CVs at http://0.0.0.0:3141/ from dkaz\n", vitae_server("--pretend"))
+    end
+    
+    with_project :sals do
+      assert_match("Serving 1 CV at http://0.0.0.0:3141/ from sals\n", vitae_server("--pretend"))
+    end
   end
   
   test "the server accepts a custom port" do
