@@ -9,3 +9,4 @@
 - contact: !omap
     - email: <%= @url_name %>@gmail.com
     - homepage: http://<%= @url_name %>.me/
+    - github: https://github.com/<%= @url_name %>

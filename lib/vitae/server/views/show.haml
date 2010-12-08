@@ -2,13 +2,20 @@
 - @cv.except(%w[vitae_config contact]).each do |category, value|
   %h2= category
   .category{ :id => category }
-    - if value.is_a? String
+    - case value
+    - when String
       = value
-    - else
-      - value.each do |subcategory, subvalue|
-        %h3= subcategory  
-        .subcategory{ :id => subcategory }
-          = subvalue
+    - when Hash
+      %ul.jobs-list
+        - value.each do |subcategory, subvalue|
+          %li.vevent.experience
+            %h3= subcategory
+            %p.job-description= subvalue
+              
+      / - value.each do |subcategory, subvalue|
+      /   %h3= subcategory  
+      /   .subcategory{ :id => subcategory }
+      /     = subvalue
 %br
 %br
 =link_to "Vitae Home", "/"
