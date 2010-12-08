@@ -22,12 +22,12 @@ Great, it's created our two named CVs in the my_cv_project/cvs directory from a 
 Once your done editing, start up the server:
   $: cd my_cv_project
   $: vitae server
-    Serving CVs at 0.0.0.0:3141
+    Serving 2 CVs at http://0.0.0.0:3141/ from my_cv_project
 
 Enjoy!
 
 === Future plans
-1. Data should actually be read from the yaml files.
+1. All data read from the yaml files should be displayed sensibly.
 2. Vitae should com bundled with better default templates - CSS, JS and YAML.
 3. Support for multiple themes.
 4. The clever stuff
