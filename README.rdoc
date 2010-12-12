@@ -20,8 +20,7 @@ Now lets create a new project called my_cv_project, with some named CVs:
 Great, it's created our two named CVs in the my_cv_project/cvs directory from a basic yaml template. Edit these yaml files with your own info (note: currently data is not actually read from these, that will change soon).
 
 Once your done editing, start up the server:
-  $: cd my_cv_project
-  $: vitae server
+  $: vitae server my_cv_project
     Serving 2 CVs at http://0.0.0.0:3141/ from my_cv_project
 
 Enjoy!
