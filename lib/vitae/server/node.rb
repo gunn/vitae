@@ -43,19 +43,38 @@ class Node
   end
   
   def node_class_for_child(key, value)
-    case (name && name.downcase)
-    when "projects" then ProjectNode
-    else Node
+    case key
+    when /expertise/i then TagCloudNode
+    else
+      case (name && name.downcase)
+      when "projects" then ProjectNode
+      else Node
+      end
+    end
+  end
+end
+
+class TagCloudNode < Node
+  def html
+    haml_tag "h#{level}", name
+    haml_tag "ul#expertise.tags" do
+      output_hash
+    end
+  end
+  
+  def output_hash
+    data.each do |key, value|
+      haml_tag "li.skill", key, :class => value
     end
   end
 end
 
 class ProjectNode < Node
   def html
-    haml_tag "div", :class => "vevent experience" do
+    haml_tag "div.vevent.experience" do
       link = link_to(name, data["url"]) if data["url"]
       haml_tag "h#{level}" do
-        haml_tag "span", (link||name), :class => "location"
+        haml_tag "span.location", (link||name)
         output_date_range
       end
     end
@@ -70,10 +89,10 @@ class ProjectNode < Node
     start_text = data["start"] ? data["start"].strftime("%B %Y") : nil
     end_text   = data["end"]   ? data["end"].strftime("%B %Y")   : "Present"
     
-    haml_tag "span", :class => "dtrange" do
-      haml_tag "span", start_text, :class => "dtstart", :title => data["start"] if start_text
+    haml_tag "span.dtrange" do
+      haml_tag "span.dtstart", start_text, :title => data["start"] if start_text
       haml_concat "-"
-      haml_tag "span", end_text, :class => "dtend", :title => data["end"] if end_text
+      haml_tag "span.dtend", end_text, :title => data["end"] if end_text
     end
   end
 end
