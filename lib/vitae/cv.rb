@@ -1,6 +1,8 @@
+require "vitae/delegators"
 require "yaml"
 
 class CV
+  extend Vitae::Delegators
   attr_reader :file_name
   
   class << self
@@ -17,15 +19,11 @@ class CV
         cv.file_name == file_name
       end
     end
-    
-    def first
-      all.first
-    end
-    
-    def last
-      all.last
-    end
   end
+  
+  class_delegate :first, :last, :size, :to => :all
+  delegate :[], :except, :each, :to => :data_hash
+  
   
   def initialize yaml_file
     @yaml_file = yaml_file
@@ -43,20 +41,6 @@ class CV
   
   def data_hash
     @data_hash ||= YAML::load_file(@yaml_file)
-  end
-  
-  def [] key
-    data_hash[key]
-  end
-  
-  def except exceptions=[]
-    data_hash.except( exceptions )
-  end
-  
-  def each &block
-    data_hash.each do |k, v|
-      yield k, v
-    end
   end
   
   

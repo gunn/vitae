@@ -1,6 +1,4 @@
 $:.unshift File.dirname(File.expand_path(__FILE__))
-require "vitae/cv"
-require "vitae/ordered_hash"
 
 module Vitae
   @@project_root = nil
@@ -22,5 +20,8 @@ module Vitae
   end
   
 end
+
+require "vitae/cv"
+require "vitae/ordered_hash"
 
 Hash.send :include, Vitae::OrderedHashExtensions
