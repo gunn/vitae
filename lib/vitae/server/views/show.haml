@@ -1,6 +1,6 @@
 = haml :vcard, :locals => { :name => @cv.name, :contact_details => @cv["contact"] } if @cv["contact"]
 
-= Node.new(@cv.except(%w[vitae_config contact]))
+= BaseNode.new(@cv.except(%w[vitae_config contact]))
 
 %br
 %br
