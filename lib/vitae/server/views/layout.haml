@@ -2,7 +2,10 @@
 %html
   %head
     %title Vitae #{ @cv && ": "+ @cv.name }
-    = include_theme_assets
+    = include_theme_css
   %body
+    %div
+      %button#summarize{:style => "display:none"} Summarise!
     #content
       = yield
+    = include_theme_js

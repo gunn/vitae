@@ -3,10 +3,12 @@ module Helpers
     @cv && @cv.theme || "default"
   end
   
-  def include_theme_assets
-    html = content_tag(:script, nil, :type => "text/javascript", :src => "/#{current_theme}/application.js")
-    html << "\n"+tag(:link, nil, :type => "text/css", :media => "screen", :rel => "stylesheet", :href => "/#{current_theme}/application.css")
-    html
+  def include_theme_css
+    tag(:link, nil, :type => "text/css", :media => "screen", :rel => "stylesheet", :href => "/#{current_theme}/application.css")
+  end
+  
+  def include_theme_js
+    content_tag(:script, nil, :type => "text/javascript", :src => "/#{current_theme}/application.js")
   end
   
   def link_to(text, *args)
