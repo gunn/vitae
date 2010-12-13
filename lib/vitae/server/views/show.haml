@@ -1,21 +1,7 @@
-= haml :vcard
-- @cv.except(%w[vitae_config contact]).each do |category, value|
-  %h2= category
-  .category{ :id => category }
-    - case value
-    - when String
-      = value
-    - when Hash
-      %ul.jobs-list
-        - value.each do |subcategory, subvalue|
-          %li.vevent.experience
-            %h3= subcategory
-            %p.job-description= subvalue
-              
-      / - value.each do |subcategory, subvalue|
-      /   %h3= subcategory  
-      /   .subcategory{ :id => subcategory }
-      /     = subvalue
+= haml :vcard, :locals => { :name => @cv.name, :contact_details => @cv["contact"] } if @cv["contact"]
+
+= Node.new(@cv.except(%w[vitae_config contact]))
+
 %br
 %br
 =link_to "Vitae Home", "/"

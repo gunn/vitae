@@ -1,8 +1,8 @@
 .vcard
-  %h1#title.fn= @cv.name
+  %h1#title.fn= name
   
   %ul#quick-links
-    - @cv["contact"].each do |key, value|
+    - contact_details.each do |key, value|
       - case value
       - when /^https?:\/\//
         %li

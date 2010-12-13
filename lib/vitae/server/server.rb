@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'haml'
 require "vitae/server/helpers"
+require "vitae/server/node"
 
 class Server < Sinatra::Base
   helpers Helpers
