@@ -58,12 +58,15 @@ ul {
   font-family: "Courier New", Courier, monospace;
   margin-top: 0;
   margin-bottom: 2em;
+	padding-right: 0.5em;
+	padding-left: 1em;
 }
 
 .tags li {
   display: inline;
   margin-right: 0.5em;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .tags li {
@@ -114,6 +117,11 @@ ul {
   margin: 2em auto;
   color: #666;
   font-size: 0.9em;
+}
+
+ul#quick-links li {
+  padding: 0;
+  margin-bottom: 0;
 }
 
 #quick-links li a {
@@ -185,7 +193,7 @@ em {
   margin-bottom: 2em;
 }
 
-.jobs-list li {
+li {
   padding: 0.75em 0.5em 0.75em 1em;
   margin-bottom: 1em;
 }
