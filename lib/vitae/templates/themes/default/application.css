@@ -110,7 +110,7 @@ ul {
 #quick-links {
   list-style-type: none;
   padding-left: 0.5em;
-  width: 25em;
+  width: 21em;
   margin: 2em auto;
   color: #666;
   font-size: 0.9em;
@@ -132,7 +132,7 @@ ul {
 
 #quick-links li span.adr {
 	display: inline-block;
-	width: 15em;
+	width: 12em;
 }
 
 #quick-links li a:hover, #quick-links li a:focus {

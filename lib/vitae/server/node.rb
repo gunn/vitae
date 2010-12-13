@@ -4,6 +4,15 @@ class Node
   
   attr_reader :level, :name, :data, :path
   
+  def self.types
+    {
+      "tag_cloud" => TagCloudNode,
+      "project_list" => ProjectListNode,
+      "project" => ProjectNode,
+      "basic" => Node
+    }
+  end
+  
   def initialize(data, name=nil, level=1, parent_path=[])
     @data = data
     @name = name
@@ -21,13 +30,17 @@ class Node
   
   def html
     haml_tag "h#{level}", name if name
-    output_data
+    show_data
   end
   
   def output_data
-    case data
+    data.except(%w[node_type])
+  end
+  
+  def show_data
+    case output_data
     when Hash
-      output_hash
+      show_hash
     when Array
       haml_concat "Array!"
     else
@@ -35,22 +48,27 @@ class Node
     end
   end
   
-  def output_hash
-    data.each do |key, value|
-      node_class = node_class_for_child(key, value)
+  def show_hash
+    output_data.each do |key, value|
+      node_class = child_node_class(key, value)
       haml_concat node_class.new(value, key, level+1, path)
     end
   end
   
-  def node_class_for_child(key, value)
-    case key
+  def child_node_class_from_yaml(value)
+    Node.types[value["node_type"]]
+  end
+  
+  def child_node_class_from_name(name)
+    case name
     when /expertise/i then TagCloudNode
-    else
-      case (name && name.downcase)
-      when "projects" then ProjectNode
-      else Node
-      end
+    when /projects/i  then ProjectListNode
+    else Node
     end
+  end
+  
+  def child_node_class(key, value)
+    child_node_class_from_yaml(value) || child_node_class_from_name(key)
   end
 end
 
@@ -58,32 +76,46 @@ class TagCloudNode < Node
   def html
     haml_tag "h#{level}", name
     haml_tag "ul#expertise.tags" do
-      output_hash
+      show_hash
     end
   end
   
-  def output_hash
-    data.each do |key, value|
+  def show_hash
+    output_data.each do |key, value|
       haml_tag "li.skill", key, :class => value
+    end
+  end
+end
+
+class ProjectListNode < Node
+  def show_hash
+    haml_tag "ul.jobs-list.vcalendar" do
+      output_data.each do |key, value|
+        haml_concat ProjectNode.new(value, key, level+1, path)
+      end
     end
   end
 end
 
 class ProjectNode < Node
   def html
-    haml_tag "div.vevent.experience" do
+    haml_tag "li.vevent.experience" do
       link = link_to(name, data["url"]) if data["url"]
       haml_tag "h#{level}" do
         haml_tag "span.location", (link||name)
-        output_date_range
+        if data["role"]
+          haml_concat " - "
+          haml_tag "span.summary", data["role"]
+        end
+        show_date_range
       end
+      
+      haml_tag "p.job-description", data["description"]
     end
-    haml_tag "b", data["role"]
-    haml_tag "p", data["description"]
-    # output_data
+    # show_data
   end
   
-  def output_date_range
+  def show_date_range
     return unless data["start"] || data["end"]
     
     start_text = data["start"] ? data["start"].strftime("%B %Y") : nil
