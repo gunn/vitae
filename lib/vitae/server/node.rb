@@ -19,6 +19,7 @@ class Node
 
     def types
       {
+        "simple_tag_cloud" => SimpleTagCloudNode,
         "tag_cloud" => TagCloudNode,
         "project_list" => ProjectListNode,
         "project" => ProjectNode,
@@ -105,7 +106,7 @@ class Node
 
 end
 
-%w[ProjectNode TagCloudNode ProjectListNode BaseNode].each do |class_name|
+%w[ProjectNode TagCloudNode ProjectListNode BaseNode SimpleTagCloudNode].each do |class_name|
   Object.const_set(class_name, Class.new(Node))
 end
 
@@ -121,6 +122,19 @@ class TagCloudNode < Node
     collection_wrapper do
       output_data.each do |key, value|
         haml_tag "li.skill", key, :class => value
+      end
+    end
+  end
+end
+
+class SimpleTagCloudNode < Node
+  set :collection_tag, "ul#expertise.tags"
+  
+  def show_hash
+    collection_wrapper do
+      output_data.each_with_index do |(key, value), index|
+        percent = ((output_data.size-index)/output_data.size.to_f)*70 + 75
+        haml_tag "li.skill", key, :style => "font-size:#{percent}%;"
       end
     end
   end
