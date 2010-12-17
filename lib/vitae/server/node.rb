@@ -50,13 +50,15 @@ class Node
   end
 
   def output_data
-    data.except(%w[node_type])
+    data.except(%w[node_type intro extro])
   end
 
   def show_data
     case data
     when Hash
+      haml_tag ".intro", data["intro"] if data["intro"]
       show_hash
+      haml_tag ".extro", data["extro"] if data["extro"]
     when Array
       haml_concat "Array!"
     else
