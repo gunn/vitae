@@ -30,6 +30,7 @@ class VitaeTestCase < Test::Unit::TestCase
   
   def vitae_test_dir
     FileUtils.mkdir_p @@vitae_test_dir
+    @@vitae_test_dir
   end
   
   def vitae_executable
