@@ -9,7 +9,7 @@ class Server < Sinatra::Base
   set :public, File.join(Vitae::project_root, "themes") rescue ''
   
   before do
-    request.path_info = CV.first.link if CV.size==1
+    request.path_info = CV.first.link if CV.size==1 && request.path_info=='/'
   end
   
   get '/' do

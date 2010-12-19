@@ -1,5 +1,6 @@
 %h1#title Vitae
 %ul
   - @cvs.each do |cv|
-    %li
-      %h2= link_to cv.name, cv.link
+    - if cv.name
+      %li
+        %h2= link_to cv.name, cv.link

@@ -32,15 +32,15 @@ class CV
   
   
   def name
-    @name ||=  data_hash.delete("name")
+    @name ||= data_hash.delete("name")
   end
   
   def vitae_config
-    @vitae_config ||=  data_hash.delete("vitae_config")
+    @vitae_config ||= data_hash.delete("vitae_config")
   end
   
   def data_hash
-    @data_hash ||= YAML::load_file(@yaml_file)
+    @data_hash ||= (YAML::load_file(@yaml_file) rescue Hash.new)
   end
   
   

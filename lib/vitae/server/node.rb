@@ -93,7 +93,7 @@ class Node
   end
 
   def child_node_class_from_yaml(value)
-    Node.types[value["node_type"]] if value.respond_to? :[]
+    Node.types[value["node_type"]] if value.is_a? Hash
   end
 
   def child_node_class_from_name(name)
