@@ -18,8 +18,16 @@ class Server < Sinatra::Base
   end
   
   get '/:name' do
+    reload_nodes_module if ENV["RACK_ENV"]=="development"
+    
     @cv = CV.find( params[:name] )
     haml :show
+  end
+  
+  def reload_nodes_module
+    warn "Reloading Nodes module"
+    Vitae.send :remove_const, :Nodes if defined? Vitae::Nodes
+    load File.join(File.dirname(__FILE__), "node.rb")
   end
   
 end
