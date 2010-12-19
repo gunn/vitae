@@ -16,6 +16,8 @@ module Vitae
       self.destination_root = name
       puts "creating #{name}..."
       
+      copy_file "config.ru"
+      
       if cv_names.size > 0
         cv_names.each do |cv_name|
           @name = cv_name

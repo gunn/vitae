@@ -6,9 +6,12 @@ class VitaeExecutableTest < VitaeTestCase
     clear_test_dir
     output = vitae_create("my_cvs")
     
-    files = %w[my_cvs/cvs/arthur_gunn.yaml
+    files = %w[
+      my_cvs/config.ru
+      my_cvs/cvs/arthur_gunn.yaml
       my_cvs/themes/default/application.js
-      my_cvs/themes/default/application.css]
+      my_cvs/themes/default/application.css
+    ]
     
     files.each do |file|
       assert(vitae_file?( file ), "#{file} should exist in #{vitae_test_dir}")
