@@ -1,3 +1,4 @@
+module Vitae::Nodes
 class Node
   include Haml::Helpers
   include Helpers
@@ -56,6 +57,7 @@ class Node
   def show_data
     case data
     when Hash
+      # haml_tag "p", self.class.name, :style => "color:red"
       haml_tag ".intro", data["intro"] if data["intro"]
       show_hash
       haml_tag ".extro", data["extro"] if data["extro"]
@@ -90,7 +92,7 @@ class Node
   end
 
   def child_node_class_from_yaml(value)
-    Node.types[value["node_type"]]
+    Node.types[value["node_type"]] if value.respond_to? :[]
   end
 
   def child_node_class_from_name(name)
@@ -108,8 +110,9 @@ class Node
 
 end
 
+# Define all the classes upfront so that they can rely on one another.
 %w[ProjectNode TagCloudNode ProjectListNode BaseNode SimpleTagCloudNode].each do |class_name|
-  Object.const_set(class_name, Class.new(Node))
+  Vitae::Nodes.const_set(class_name, Class.new(Node))
 end
 
 class BaseNode < Node
@@ -176,4 +179,6 @@ class ProjectNode < Node
       haml_tag "span.dtend", end_text, :title => data["end"] if end_text
     end
   end
+end
+  
 end
