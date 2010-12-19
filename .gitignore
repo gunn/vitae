@@ -4,3 +4,4 @@ pkg/*
 .bundle
 tmp
 .autotest
+Gemfile.lock
