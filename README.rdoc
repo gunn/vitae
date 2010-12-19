@@ -5,7 +5,7 @@ Vitae is to CVs what rubygems is to ruby code.
 It's also very under development right now, and not very useful yet. Come back soon!
 
 
-=== Usage
+== Usage
 First install the vitae gem:
   $: sudo gem i vitae
 
@@ -25,13 +25,13 @@ Once your done editing, start up the server:
 
 Enjoy!
 
-=== Future plans
+== Future plans
 1. All data read from the yaml files should be displayed sensibly.
 2. Vitae should com bundled with better default templates - CSS, JS and YAML.
 3. Support for multiple themes.
 4. The clever stuff
 
-=== The clever stuff
+== The clever stuff
 Much like rubygems or git
 
 Push a CV:
@@ -49,13 +49,13 @@ Pull a CV:
     Theme pulled to themes/darkness
     Theme pulled to themes/espresso
 
-=== Want to help?
+== Want to help?
 Just the github usual for development - fork, commit, pull request, bonus points for tests.
 Have a play and report bugs, request features via the issue tracker.
 
 Feel free to email me at arthur@gunn.co.nz
 
-=== Credits
+== Credits
 Development by Arthur Gunn.
 
 Thanks to Maxim Chernyak and Juriy Zaytsev for CSS used in the default theme.
