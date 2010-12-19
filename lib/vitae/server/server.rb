@@ -8,6 +8,10 @@ class Server < Sinatra::Base
   set :views, File.dirname(__FILE__) + '/views'
   set :public, File.join(Vitae::project_root, "themes") rescue ''
   
+  before do
+    request.path_info = CV.first.link if CV.size==1
+  end
+  
   get '/' do
     @cvs = CV.all
     haml :index

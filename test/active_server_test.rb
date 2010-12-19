@@ -9,6 +9,7 @@ class ActiveServerTest < VitaeServerTestCase
       assert last_response.ok?
       assert_matches %w[Katya Derek Arthur Zeena]
       assert_select  "a[href='/katya']", "Katya"
+      assert_select  "a[href='/zeena']", "Zeena"
       
       check_includes_standard_assets
     end
@@ -20,7 +21,6 @@ class ActiveServerTest < VitaeServerTestCase
       assert last_response.ok?
     
       assert_select "h1", "Sajal Shah"
-      assert_select "a[href='/']"
     
       check_includes_standard_assets
     end
@@ -32,6 +32,18 @@ class ActiveServerTest < VitaeServerTestCase
       assert last_response.ok?
     
       assert_no_select "h2", "vitae_config"
+    end
+  end
+  
+  test "if there's only one CV it should be at the root" do
+    with_project :sals do
+      get '/'
+      assert last_response.ok?
+    
+      assert_select "h1", "Sajal Shah"
+      assert_no_select "a[href='/']"
+    
+      check_includes_standard_assets
     end
   end
   

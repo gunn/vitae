@@ -1,4 +1,5 @@
 module Vitae::Nodes
+
 class Node
   include Haml::Helpers
   include Helpers
