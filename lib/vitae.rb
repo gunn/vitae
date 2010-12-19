@@ -11,7 +11,7 @@ module Vitae
     @@project_root = root
   end
   
-  module OrderedHashExtensions
+  module HashExtensions
     def except(exceptions=[])
       reject do |k, v|
         exceptions.include? k
@@ -24,4 +24,4 @@ end
 require "vitae/cv"
 require "vitae/ordered_hash"
 
-Hash.send :include, Vitae::OrderedHashExtensions
+Hash.send :include, Vitae::HashExtensions
