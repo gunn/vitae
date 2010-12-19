@@ -49,13 +49,15 @@ module Vitae
       
       port_set_by_user = ARGV.any? { |a| %w[-p --port].include?( a ) }
       
+      
+      Vitae::project_root = File.expand_path(project_path, Dir.pwd)
+      
       server = Rack::Server.new.tap do |s|
-        s.options[:config]  = File.join(File.dirname(__FILE__), "..", "..", "config.ru")
+        s.options[:config]  = File.join(Vitae::project_root, "config.ru")
         s.options[:Port]    = 3141 unless port_set_by_user
       end
       
-      require "vitae/server/server"
-      Vitae::project_root = File.expand_path(project_path, Dir.pwd)
+      
       
       opts = server.options
       cv_count = CV.all.size
