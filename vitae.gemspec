@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = ["arthur@gunn.co.nz"]
   s.homepage    = "https://github.com/gunn/vitae"
   s.summary     = %q{A structured CV publishing system.}
-  s.description = %q{Vitae is to CVs what rubygems is to ruby code. Still very under development.}
+  s.description = %q{Vitae is to CVs what rubygems is to ruby code. Still very under development. Semi-usable at this point.}
   
   s.add_dependency "sinatra", "~>1.1.0"
   s.add_dependency "haml", "~>3.0.0"
