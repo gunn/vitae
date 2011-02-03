@@ -47,6 +47,18 @@ class ActiveServerTest < VitaeServerTestCase
     end
   end
   
+  test "we have format links" do
+    with_project :sals do
+      get '/'
+      
+      assert_select "#download-links" do
+        assert_select  "a[href='/sajal_shah']", "html"
+        assert_select  "a[href='/sajal_shah.yaml']", "yaml"
+        assert_select  "a[href='/sajal_shah.pdf']", "pdf"
+      end
+    end
+  end
+  
   test "serves pdfs" do
     with_project :default do
       get '/arthur_gunn.pdf'
