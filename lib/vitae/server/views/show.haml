@@ -1,5 +1,10 @@
 = haml :vcard, :locals => { :name => @cv.name, :contact_details => @cv["contact"] } if @cv["contact"]
 
+#download-links
+  = link_to "pdf", @cv.link+".pdf"
+  = link_to "html", @cv.link
+  = link_to "yaml", @cv.link+".yaml"
+  
 = Vitae::Nodes::BaseNode.new(@cv.except(%w[vitae_config contact]))
 
 %br

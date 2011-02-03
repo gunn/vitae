@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'haml'
+require 'pdfkit'
 require "vitae/server/helpers"
 require "vitae/server/node"
 
@@ -21,11 +22,28 @@ class Server < Sinatra::Base
     send_file File.join(File.dirname(__FILE__), "assets", "favicon.ico"), :type => 'image/x-icon', :disposition => 'inline'
   end
   
-  get '/:name' do
+  get '/:path' do
     reload_nodes_module if ENV["RACK_ENV"]=="development"
     
-    @cv = CV.find( params[:name] )
-    haml :show
+    name, ext = params[:path].split('.')
+    
+    @cv = CV.find( name )
+    
+    case ext.to_s
+    when '', 'html', 'htm'
+      haml :show
+    when 'yaml', 'yml'
+      yaml_path = File.join(Vitae::project_root, "cvs", "#{@cv.file_name}.yaml")
+      send_file yaml_path, :type => 'text/yaml', :disposition => 'inline'
+    when 'pdf'
+      content_type 'application/pdf', :charset => 'utf-8'
+
+      pdf = PDFKit.new(haml(:show), :page_size => 'Letter', :print_media_type => true)
+      pdf.stylesheets << File.join(Server::public, current_theme, "application.css")
+      pdf.to_pdf
+    else
+      "Sorry, we don't have anything with a .#{ext} extension here."
+    end
   end
   
   def reload_nodes_module

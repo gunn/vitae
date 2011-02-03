@@ -15,6 +15,7 @@ Gem::Specification.new do |s|
   s.add_dependency "sinatra", "~>1.1.0"
   s.add_dependency "haml", "~>3.0.0"
   s.add_dependency "thor", "~>0.14.0"
+  s.add_dependency "pdfkit", "~>0.5.0"
   
   s.add_development_dependency "nokogiri", "~>1.4.0"
 
