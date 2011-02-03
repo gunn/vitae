@@ -1,4 +1,8 @@
-/* CSS by Maxim Chernyak and Juriy Zaytsev - https://github.com/maxim/maxim.github.com */
+/*
+ CSS by Maxim Chernyak and Juriy Zaytsev - https://github.com/maxim/maxim.github.com
+ Modified slightly fo vitae.
+*/
+
 body { 
   font-family: Garamond, "Hoefler Text", "Times New Roman", Times, serif;
   font-size: 1.1em;
@@ -42,6 +46,8 @@ img {
 
 #download-links a {
   display: block;
+  padding: 12px;
+  text-align: right;
 }
 
 ul {
@@ -224,7 +230,7 @@ li {
 /* PRINT MEDIA */
 
 @media print {
-  body { color: #000; font-family: Cambria, Georgia, Times, "Times New Roman", serif; font-size: 1.3em; }
+  body { color: #000; font-family: Cambria, Georgia, Times, "Times New Roman", serif; font-size: 1.4em; }
   em { font-weight: bold; }
   a:link, a:visited { color: #007; text-decoration: none; }
   .tags li { color: #000; }
