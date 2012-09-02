@@ -38,6 +38,10 @@ class CV
   def vitae_config
     @vitae_config ||= data_hash.delete("vitae_config")
   end
+
+  def ga_tracking_id
+    vitae_config["ga_tracking_id"]
+  end
   
   def data_hash
     @data_hash ||= (YAML::load_file(@yaml_file) rescue Hash.new)
