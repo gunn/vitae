@@ -7,7 +7,7 @@ module Vitae
   end
   
   def self.project_root= root
-    Server.set :public, File.join(root, "themes") if root && defined?(Server)
+    Server.set :public_folder, File.join(root, "themes") if root && defined?(Server)
     @@project_root = root
   end
   
