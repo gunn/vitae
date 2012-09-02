@@ -12,12 +12,12 @@ Gem::Specification.new do |s|
   s.summary     = %q{A structured CV publishing system.}
   s.description = %q{Vitae is to CVs what rubygems is to ruby code. Still very under development. Semi-usable at this point.}
   
-  s.add_dependency "sinatra", "~>1.1.0"
-  s.add_dependency "haml", "~>3.0.0"
-  s.add_dependency "thor", "~>0.14.0"
-  s.add_dependency "pdfkit", "~>0.5.0"
+  s.add_dependency "sinatra", "~>1.2.0"
+  s.add_dependency "haml", "~>3.1.0"
+  s.add_dependency "thor", "~>0.16.0"
+  s.add_dependency "pdfkit", "~>0.5.2"
   
-  s.add_development_dependency "nokogiri", "~>1.4.0"
+  s.add_development_dependency "nokogiri", "~>1.5.0"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
