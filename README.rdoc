@@ -1,6 +1,6 @@
 = Vitae
 
-A fast way to create and serve semantic, structured CVs for developers.
+A fast way to create and serve semantic, structured CVs for developers. See a live example at http://arthurgunn.com
 
 
 == Usage
