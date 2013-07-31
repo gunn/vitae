@@ -1,8 +1,6 @@
 = Vitae
 
-Vitae is to CVs what rubygems is to ruby code.
-
-It's also very under development right now, and not very useful yet. Come back soon!
+A fast way to create and serve semantic, structured CVs for developers.
 
 
 == Usage
@@ -29,25 +27,8 @@ Enjoy!
 1. All data read from the yaml files should be displayed sensibly.
 2. Vitae should com bundled with better default templates - CSS, JS and YAML.
 3. Support for multiple themes.
-4. The clever stuff
+4. Heroku hosting example.
 
-== The clever stuff
-Much like rubygems or git
-
-Push a CV:
-  $: vitae push vitae.gunn.co.nz arthur_gunn  
-    pushing...
-    1 CV pushed
-    CV available at http://vitae.gunn.co.nz/arthur_gunn
-  
-Pull a CV:
-  $: vitae pull vitae.gunn.co.nz sajal_shah  
-    pulling...
-    1 CV pulled
-    2 themes pulled
-    CV pulled to cvs/sajal_shah
-    Theme pulled to themes/darkness
-    Theme pulled to themes/espresso
 
 == Want to help?
 Just the github usual for development - fork, commit, pull request, bonus points for tests.
